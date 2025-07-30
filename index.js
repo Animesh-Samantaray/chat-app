@@ -8,10 +8,8 @@ const override = require('method-override');
 async function main(){
     await mongoose.connect('mongodb://127.0.0.1:27017/whatsapp');
 }
-
-
+const ExpErr  = require('./ExpErr.js');
 main().then(res=>console.log('connected to mongoDB\n')).catch(err=>console.log('failed to establish connection with mongoDB\n'));
-
 
 app.set('views' , path.join(__dirname , 'views'));
 app.set('view engine' , 'ejs');
@@ -53,9 +51,9 @@ app.post('/chats' , (req,res)=>{
 app.get('/chats/:id/edit' ,  async (req,res)=>{
     let {id} = req.params;
     let chat = await Chat.findById(id);
+    
     res.render('edit.ejs' , {chat});
 })
-
 
 app.put('/chats/:id' ,  async (req,res)=>{
      let {id} = req.params;
@@ -65,6 +63,7 @@ app.put('/chats/:id' ,  async (req,res)=>{
     })
     res.redirect('/chats');
 })
+
 app.delete('/chats/:id' ,  async (req,res)=>{
      let {id} = req.params;
    await Chat.findByIdAndDelete(id)
