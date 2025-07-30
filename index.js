@@ -61,7 +61,7 @@ app.put('/chats/:id' ,  async (req,res)=>{
    await Chat.findByIdAndUpdate(id , {
         from:from,msg:msg , to:to
     })
-    res.redirect('/chats');
+    res.redirect('/chats')   ; 
 })
 
 app.delete('/chats/:id' ,  async (req,res)=>{
